@@ -111,6 +111,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 20pt &quot;Ubuntu Condensed&quot;;</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -171,22 +174,5 @@
  <resources>
   <include location="Resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>inNota1</sender>
-   <signal>valueChanged(QString)</signal>
-   <receiver>outPromedio</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>603</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>600</x>
-     <y>276</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

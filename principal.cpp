@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 Principal::Principal(QWidget *parent)
     : QMainWindow(parent)
@@ -34,7 +35,7 @@ void Principal::dibujar()
 
     QPainter painter(&lienzo);
 
-    int x = 0;
+    int x = 10;
     int y = 0;
 
     // Crear un pincel para los bordes
@@ -55,9 +56,9 @@ void Principal::dibujar()
     painter.drawRect(x+50, y+50+incYN1,100,Alturan1);
 
     // Crear un objeto color para el relleno
-    QColor colorRelleno(190,120,162);
+    QColor colorRelleno(Qt::red);
     // Crear otro objeto color para el borde
-    QColor colorBorde(78,3,48);
+    QColor colorBorde(Qt::blue);
 
     // Cambiar el color del pincel
     pincel.setColor(colorBorde);
@@ -88,6 +89,34 @@ void Principal::dibujar()
     int incYN3=this->incY(Alturan3);
 
     painter.drawRect(x+290,y+50+incYN3,100,Alturan3);
+
+    int a=ui->inNota1->value();
+    int b=ui->inNota2->value();
+    int c=ui->inNota3->value();
+    double prom = (a+b+c)/3;
+    ui->outPromedio->setNum(prom);
+    // Estableciendo colores al puncel y al painter
+    pincel.setColor(Qt::black);
+    painter.setPen(pincel);
+    painter.drawLine(800,450,0,450);
+    painter.drawLine(50,0,50,500);
+    int cont=500;
+    int as=0;
+    for(int i=0;i<=10;i++){
+        cont=cont-40;
+        qDebug()<<as<< " "<<cont;
+        painter.drawText(20,cont,QString::number(as));
+        as=as+10;
+    }
+    painter.drawText(100,490,"N1");
+    painter.drawText(200,490,"N2");
+    painter.drawText(300,490,"N3");
+    painter.drawText(20,440-prom*4,QString::number(prom));
+    pincel.setColor(Qt::green);
+    painter.setPen(pincel);
+    painter.drawLine(800,450-prom*4,0,450-prom*4);
+
+
 }
 
 int Principal::getAlto(int a)
@@ -128,13 +157,4 @@ void Principal::on_inNota2_valueChanged(int arg1)
 void Principal::on_inNota3_valueChanged(int arg1)
 {
     dibujar();
-}
-
-QString Principal::Promedio()
-{
-    int a=ui->inNota1->value();
-    int b=ui->inNota2->value();
-    int c=ui->inNota3->value();
-    double prom = a+b+c/3.0;
-    return ui->outPromedio->setText(QString::number(prom));
 }
