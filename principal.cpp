@@ -26,7 +26,6 @@ Principal::~Principal()
 void Principal::paintEvent(QPaintEvent *event)
 {
     ui->outCuadro->setPixmap(lienzo);
-    ui->outPromedio;
 }
 
 void Principal::dibujar()
@@ -93,28 +92,29 @@ void Principal::dibujar()
     int a=ui->inNota1->value();
     int b=ui->inNota2->value();
     int c=ui->inNota3->value();
-    double prom = (a+b+c)/3;
+    float prom = (a+b+c)/3;
     ui->outPromedio->setNum(prom);
     // Estableciendo colores al puncel y al painter
     pincel.setColor(Qt::black);
     painter.setPen(pincel);
     painter.drawLine(800,450,0,450);
     painter.drawLine(50,0,50,500);
-    int cont=500;
-    int as=0;
-    for(int i=0;i<=10;i++){
-        cont=cont-40;
-        qDebug()<<as<< " "<<cont;
+    int cont=450;
+    int as=20;
+    int divisiones=5;
+    for(int i=0;i<divisiones;i++){
+        cont=cont-(80);
         painter.drawText(20,cont,QString::number(as));
-        as=as+10;
+        painter.drawLine(45,cont,50,cont);
+        as=as+20;
     }
     painter.drawText(100,490,"N1");
     painter.drawText(200,490,"N2");
     painter.drawText(300,490,"N3");
-    painter.drawText(20,440-prom*4,QString::number(prom));
+    painter.drawText(250,440-prom*4,QString::number(prom));
     pincel.setColor(Qt::green);
     painter.setPen(pincel);
-    painter.drawLine(800,450-prom*4,0,450-prom*4);
+    painter.drawLine(400,450-prom*4,60,450-prom*4);
 
 
 }
@@ -136,9 +136,9 @@ void Principal::on_actionGuardar_triggered()
                 this,"Guardar imagen",QString(),"Imagenes (*.png)");
     if (!nombreArchivo.isEmpty()){
         if (lienzo.save(nombreArchivo))
-            QMessageBox::information(this,"Guardar imagen","Archivo guarado en: " + nombreArchivo);
+            QMessageBox::information(this,tr("Guardar imagen"),tr("Archivo guarado en: ") + nombreArchivo);
         else
-            QMessageBox::warning(this,"Guardar imagen","No se pudo guardar el archivo");
+            QMessageBox::warning(this,tr("Guardar imagen"),tr("No se pudo guardar el archivo"));
     }
 }
 
